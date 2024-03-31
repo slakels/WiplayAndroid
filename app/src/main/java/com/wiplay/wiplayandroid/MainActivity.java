@@ -8,6 +8,8 @@ import androidx.core.content.ContextCompat;
 import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
@@ -26,6 +28,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;;
@@ -42,7 +45,7 @@ import com.onesignal.OneSignal;
 
 public class MainActivity extends AppCompatActivity implements OSSubscriptionObserver {
     private WebView mWebView;
-    private TextView cargando;
+    private ImageView cargando;
     private ProgressBar progressBar;
     private ValueCallback<Uri[]> mUploadMessage;
     private static final int STORAGE_PERMISSION_CODE = 123;
@@ -96,8 +99,13 @@ public class MainActivity extends AppCompatActivity implements OSSubscriptionObs
         OneSignal.addSubscriptionObserver(this);
 
         mWebView = findViewById(R.id.webview);
-        cargando = findViewById(R.id.carregant);
+        cargando = findViewById(R.id.logo);
         progressBar = findViewById(R.id.progressBar);
+        String principalColor = getResources().getString(R.string.principal_color);
+        String secondaryColor = getResources().getString(R.string.secondary_color);
+        progressBar.setIndeterminateTintList(ColorStateList.valueOf(Color.parseColor(secondaryColor)));
+        progressBar.setBackgroundColor(Color.parseColor(principalColor));
+
 
         //Permitir la descarga de documentos desde WEBVIEW
         mWebView.setDownloadListener(new DownloadListener() {

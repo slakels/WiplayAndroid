@@ -27,6 +27,8 @@ android {
             resValue "string", "app_url", "https://totpadel.cat"
             resValue "string", "app_intent", "totpadel.cat"
             resValue "string", "app_onesignal_id", "c8249ab5-7443-40dc-ac19-ff8d373a52b7"
+            resValue "string", "principal_color", "#252525"
+            resValue "string", "secondary_color", "#EAF02C"
         }
 
         summapadel {
@@ -37,6 +39,8 @@ android {
             resValue "string", "app_url", "https://summapadel.com"
             resValue "string", "app_intent", "summapadel.com"
             resValue "string", "app_onesignal_id", "c8249ab5-7443-40dc-ac19-ff8d373a52b7"
+            resValue "string", "principal_color", "#252525"
+            resValue "string", "secondary_color", "#EAF02C"
         }
 
         evenpadel {
@@ -47,6 +51,8 @@ android {
             resValue "string", "app_url", "https://evenpadel-dev.stape.es/"
             resValue "string", "app_intent", "evenpadel.com"
             resValue "string", "app_onesignal_id", "2b7ea747-afe5-42d5-91ac-710e4abe3031"
+            resValue "string", "principal_color", "#252525"
+            resValue "string", "secondary_color", "#EAF02C"
         }
 
         local {
@@ -54,9 +60,11 @@ android {
             applicationId "com.wiplay.wiplayandroid.v2"
             versionName "1.0"
             resValue "string", "app_name", "Test"
-            resValue "string", "app_url", "http://83.41.153.144:81"
+            resValue "string", "app_url", "http://83.41.146.166:81"
             resValue "string", "app_intent", "summapadel.com"
             resValue "string", "app_onesignal_id", "c8249ab5-7443-40dc-ac19-ff8d373a52b7"
+            resValue "string", "principal_color", "#252525"
+            resValue "string", "secondary_color", "#EAF02C"
         }
     }
 
