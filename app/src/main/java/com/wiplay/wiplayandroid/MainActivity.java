@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.animation.ObjectAnimator;
 import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,6 +19,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
@@ -47,8 +49,11 @@ public class MainActivity extends AppCompatActivity implements OSSubscriptionObs
     private WebView mWebView;
     private ImageView cargando;
     private ProgressBar progressBar;
+
+    private View progressView;
     private ValueCallback<Uri[]> mUploadMessage;
     private static final int STORAGE_PERMISSION_CODE = 123;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private final static int FILECHOOSER_RESULTCODE=1;
 
     private String URL;
@@ -101,10 +106,14 @@ public class MainActivity extends AppCompatActivity implements OSSubscriptionObs
         mWebView = findViewById(R.id.webview);
         cargando = findViewById(R.id.logo);
         progressBar = findViewById(R.id.progressBar);
+        progressView = findViewById(R.id.progressView);
         String principalColor = getResources().getString(R.string.principal_color);
         String secondaryColor = getResources().getString(R.string.secondary_color);
         progressBar.setIndeterminateTintList(ColorStateList.valueOf(Color.parseColor(secondaryColor)));
-        progressBar.setBackgroundColor(Color.parseColor(principalColor));
+        progressBar.setIndeterminate(true);
+        ObjectAnimator progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, 100);
+        progressAnimator.setInterpolator(new LinearInterpolator());
+        progressAnimator.start();
 
 
         //Permitir la descarga de documentos desde WEBVIEW
@@ -126,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements OSSubscriptionObs
                 Toast.makeText(getApplicationContext(), "Descarregant fitxer", Toast.LENGTH_LONG).show();
                 cargando.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
+                progressView.setVisibility(View.GONE);
             }
         });
 
@@ -159,6 +169,10 @@ public class MainActivity extends AppCompatActivity implements OSSubscriptionObs
 
         locationClient = LocationServices.getFusedLocationProviderClient(this);
 
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        }
+
         configLoader();
 
         startLocationUpdates();
@@ -167,8 +181,9 @@ public class MainActivity extends AppCompatActivity implements OSSubscriptionObs
     }
 
     private void startLocationUpdates() {
+        System.out.println("startLocationUpdate - INIT");
         locationRequest = LocationRequest.create();
-        locationRequest.setInterval(10000); // Intervalo de actualización deseado, e.g., 10 segundos
+        locationRequest.setInterval(1); // Intervalo de actualización deseado, e.g., 10 segundos
         locationRequest.setFastestInterval(5000); // La tasa más rápida en milisegundos en la que tu aplicación puede manejar actualizaciones
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setSmallestDisplacement(100); // Distancia mínima entre actualizaciones en metros, e.g., 100 metros
@@ -245,6 +260,7 @@ public class MainActivity extends AppCompatActivity implements OSSubscriptionObs
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 cargando.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
+                progressView.setVisibility(View.VISIBLE);
                 if(url.startsWith("https://accounts.google.com")) {
                     return false;
                 } else if (url.startsWith("http:") || url.startsWith("https:")) {
@@ -262,6 +278,7 @@ public class MainActivity extends AppCompatActivity implements OSSubscriptionObs
                 super.onPageFinished(view, url);
                 cargando.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
+                progressView.setVisibility(View.GONE);
                 paginaCargada = true;
 
                 if(locationTemporal != null) {

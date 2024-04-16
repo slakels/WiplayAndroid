@@ -48,7 +48,7 @@ android {
             applicationId "com.evenpadel"
             versionName "1.0"
             resValue "string", "app_name", "Evenpadel"
-            resValue "string", "app_url", "https://evenpadel-dev.stape.es/"
+            resValue "string", "app_url", "https://evenpadel.stape.es/"
             resValue "string", "app_intent", "evenpadel.com"
             resValue "string", "app_onesignal_id", "2b7ea747-afe5-42d5-91ac-710e4abe3031"
             resValue "string", "principal_color", "#252525"
