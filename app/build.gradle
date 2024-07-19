@@ -4,13 +4,21 @@ plugins {
 
 android {
 
+    signingConfigs {
+        debug {
+            storeFile file('/Users/slakels/DocsLocal/KeyStore/wiplay')
+            storePassword 'Ccm_0123456789'
+            keyAlias 'wiplay'
+            keyPassword 'Ccm_0123456789'
+        }
+    }
     namespace 'com.wiplay.wiplayandroid'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.wiplay.wiplayandroid"
-        minSdk 24
-        targetSdk 33
+        minSdk 21
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -33,13 +41,27 @@ android {
 
         summapadel {
             dimension "versionType"
-            applicationId "com.summapadel"
-            versionName "1.0"
+            applicationId "es.stape.easypadel.summapadel"
+            versionName "2.0"
+            versionCode 2
             resValue "string", "app_name", "Summapadel"
             resValue "string", "app_url", "https://summapadel.com"
             resValue "string", "app_intent", "summapadel.com"
             resValue "string", "app_onesignal_id", "c8249ab5-7443-40dc-ac19-ff8d373a52b7"
-            resValue "string", "principal_color", "#252525"
+            resValue "string", "principal_color", "#FEDD03"
+            resValue "string", "secondary_color", "#0D3149"
+        }
+
+        pickleball {
+            dimension "versionType"
+            applicationId "es.stape.easypadel.pickleball"
+            versionName "2"
+            versionCode 2
+            resValue "string", "app_name", "Wiplay Pickleball"
+            resValue "string", "app_url", "https://wiplaypickleball.stape.es"
+            resValue "string", "app_intent", "wiplaypickleball.stape.es"
+            resValue "string", "app_onesignal_id", "c285609e-b621-4018-a871-4c72a39e8b6c"
+            resValue "string", "principal_color", "#FEDD03"
             resValue "string", "secondary_color", "#EAF02C"
         }
 
@@ -49,7 +71,7 @@ android {
             versionName "1.0"
             resValue "string", "app_name", "Evenpadel"
             resValue "string", "app_url", "https://evenpadel.stape.es/"
-            resValue "string", "app_intent", "evenpadel.com"
+            resValue "string", "app_intent", "evenpadel.stape.es"
             resValue "string", "app_onesignal_id", "2b7ea747-afe5-42d5-91ac-710e4abe3031"
             resValue "string", "principal_color", "#252525"
             resValue "string", "secondary_color", "#EAF02C"
