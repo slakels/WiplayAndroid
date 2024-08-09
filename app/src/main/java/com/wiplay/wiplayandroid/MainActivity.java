@@ -14,6 +14,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
@@ -93,6 +94,27 @@ public class MainActivity extends AppCompatActivity implements OSSubscriptionObs
             }
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        mWebView.evaluateJavascript("javascript:tabBack()", new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String value) {
+                System.out.println("onReceiveValue - " + value);
+                if (value == null || value.equals("null")) {
+                    // Si hubo un error o la función no existe, hacer goBack
+                    if (mWebView.canGoBack()) {
+                        mWebView.goBack();
+                    } else {
+                        //Evitar que se cierra la app al apretár atrás
+                        //MainActivity.super.onBackPressed();
+                    }
+                }
+            }
+        });
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -353,6 +375,21 @@ public class MainActivity extends AppCompatActivity implements OSSubscriptionObs
                     Toast.makeText(MainActivity.this, "Unable to handle URL: " + url, Toast.LENGTH_LONG).show();
                 }
                 return true;
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+
+                // Verifica si la URL no pertenece a tu dominio
+                if (!url.contains(DOMAIN)) {
+                    backButton.setVisibility(View.VISIBLE);
+                    cargando.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
+                    progressView.setVisibility(View.GONE);
+                } else {
+                    backButton.setVisibility(View.GONE);
+                }
             }
 
             @Override
