@@ -6,19 +6,19 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('/Users/slakels/DocsLocal/KeyStore/wiplay')
+            storeFile file('/Users/cristian/Documents/Keystores/wiplay')
             storePassword 'Ccm_0123456789'
             keyAlias 'wiplay'
             keyPassword 'Ccm_0123456789'
         }
     }
     namespace 'com.wiplay.wiplayandroid'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.wiplay.wiplayandroid"
         minSdk 21
-        targetSdk 34
+        setTargetSdk(35)
         versionCode 1
         versionName "1.0"
 
@@ -29,14 +29,39 @@ android {
     productFlavors {
         totpadel {
             dimension "versionType"
-            applicationId "cat.totpadel"
-            versionName "1.0"
+            applicationId "totpadel.cat.totpadel"
+            versionName "5.0"
+            versionCode 101
             resValue "string", "app_name", "Totpadel"
             resValue "string", "app_url", "https://totpadel.cat"
             resValue "string", "app_intent", "totpadel.cat"
             resValue "string", "app_onesignal_id", "c8249ab5-7443-40dc-ac19-ff8d373a52b7"
             resValue "string", "principal_color", "#252525"
             resValue "string", "secondary_color", "#EAF02C"
+        }
+        wiplaypadel {
+            dimension "versionType"
+            applicationId "es.stape.wiplaypadel"
+            versionName "1.0"
+            versionCode 1
+            resValue "string", "app_name", "Wiplay Padel"
+            resValue "string", "app_url", "https://wiplaypadel.com"
+            resValue "string", "app_intent", "wiplaypadel.com"
+            resValue "string", "app_onesignal_id", "d9dc81ca-1d43-4d97-a735-58ccef58940b"
+            resValue "string", "principal_color", "#252525"
+            resValue "string", "secondary_color", "#EAF02C"
+        }
+        indoorpadel7 {
+            dimension "versionType"
+            applicationId "es.stape.indoorpadel7"
+            versionName "2.0"
+            versionCode 2
+            resValue "string", "app_name", "Indoor Padel 7"
+            resValue "string", "app_url", "https://indoorpadel7.com"
+            resValue "string", "app_intent", "indoorpadel7.com"
+            resValue "string", "app_onesignal_id", "5a8e0be6-8437-4e31-b8bf-78b1196ed22b"
+            resValue "string", "principal_color", "#000000"
+            resValue "string", "secondary_color", "#800000"
         }
 
         summapadel {
@@ -95,6 +120,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
     compileOptions {
