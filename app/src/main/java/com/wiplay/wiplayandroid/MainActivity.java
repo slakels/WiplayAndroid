@@ -183,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements OSSubscriptionObs
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setUserAgentString("Mozilla/5.0 (Linux; Android 10; VOG-L29) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.5359.79 Mobile Safari/537.36 OPR/63.3.3216.58675");
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true); // ✅ enables localStorage
         webSettings.setBuiltInZoomControls(true);
         webSettings.setTextZoom(90);
         webSettings.setAllowFileAccess(true);
